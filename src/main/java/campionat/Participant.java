@@ -1,6 +1,8 @@
 package campionat;
 
-public class Resultat implements Comparable {
+import jugadors.Jugable;
+
+public class Participant implements Comparable {
 	//total victories 
 	private int victories;
 	//total derrotes
@@ -9,38 +11,48 @@ public class Resultat implements Comparable {
 	private int descalif;
 	// puntuació que obeeix a la formula victories - derrotes - descalificacions*2
 	private int puntuacio;
+	// jugador
+	private Jugable jugador;
 	
-	public Resultat() {
+	public Participant(Jugable jugador) {
 		victories=0;
 		derrotes=0;
 		descalif=0;
+		this.jugador=jugador;
 	}
 	public int getVictories() {
 		return victories;
 	}
-	public void setVictories(int victories) {
-		this.victories = victories;
+	public void addVictoria() {
+		this.victories++;
 	}
 	public int getDerrotes() {
 		return derrotes;
 	}
-	public void setDerrotes(int derrotes) {
-		this.derrotes = derrotes;
+	public void addDerrotes() {
+		this.derrotes++;
 	}
 	public int getDescalif() {
 		return descalif;
 	}
-	public void setDescalif(int descalif) {
-		this.descalif = descalif;
+	public void addDescalif() {
+		this.descalif++;
 	}
 	public int getPuntuacio() {
 		return this.puntuacio = (victories - derrotes) - (descalif*2);
 	}
+	
+	public Jugable getJugador() {
+		return jugador;
+	}
+	public void setJugador(Jugable jugador) {
+		this.jugador = jugador;
+	}
 	public int compareTo(Object o) {
 		
-		if (o instanceof Resultat)
+		if (o instanceof Participant)
 		{
-		Resultat res = (Resultat) o;
+		Participant res = (Participant) o;
 		return this.puntuacio > res.getPuntuacio() ? 1 : this.puntuacio< res.getPuntuacio() ? -1 : 0;
 		}
 		else
@@ -56,6 +68,7 @@ public class Resultat implements Comparable {
 		hash = derrotes*prime;
 		hash += victories*prime;
 		hash += descalif*prime;
+		hash += jugador.getClass().hashCode();
 		return hash;	
 	}
 	
@@ -63,10 +76,10 @@ public class Resultat implements Comparable {
 	public boolean equals(Object obj) {
         if (obj == null)
             return false;
-        else if (!(obj instanceof Resultat))
+        else if (!(obj instanceof Participant))
             return false;
         else {
-        	Resultat r = (Resultat) obj;
+        	Participant r = (Participant) obj;
         	return this.getPuntuacio() == r.getPuntuacio();
         }
 	}

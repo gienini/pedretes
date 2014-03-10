@@ -8,5 +8,8 @@ public class playerDos implements Jugable {
 	public Jugada fesJugada(int x, int y, int z, int torn) {
 		return new Jugada(1,true,true,true);
 	}
-
+	@Override
+	public int hashCode() {
+		return "playerdos".hashCode();
+	}
 }

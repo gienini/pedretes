@@ -9,6 +9,9 @@ public class playerU implements Jugable {
 		return new Jugada(1,true,true,true);
 	}
 
-
+	@Override
+	public int hashCode() {
+		return "player1".hashCode();
+	}
 
 }
