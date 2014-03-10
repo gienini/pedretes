@@ -47,5 +47,9 @@ public class Garcia implements Jugable {
 
 		}
 	}
+	@Override
+	public int hashCode() {
+		return "Garcia".hashCode();
+	}
 
 }

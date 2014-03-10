@@ -27,6 +27,10 @@ public class Gienini implements Jugable {
 		else if (y<z&& y>0) return y;
 		else return z;
 	}
-	
- 
+
+	@Override
+	public int hashCode() {
+		return "Gienini".hashCode();
+	}
+	 
 }
