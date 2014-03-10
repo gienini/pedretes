@@ -6,10 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-
-
-
-
 import java.util.Map.Entry;
 
 import arbitre.Arbitre;
@@ -20,31 +16,33 @@ import jugadors.*;
 public class Campionat {
 	
 	private ArrayList<Participant> participants;
+	private int rondes;
 	
-	public Campionat() {
+	public Campionat(int rondes) {
 	
 		participants = new ArrayList<Participant>();
 		participants.add(new Participant(new Garcia()));
 		participants.add(new Participant(new playerDos()));
 		participants.add(new Participant(new Gienini()));
 		participants.add(new Participant(new playerU()));
+		this.rondes=rondes;
 	
 	}
 	public void fesCampionat() {
-
-		for (int i=0; i<participants.size();i++)	
-		{
-			Participant p1 = participants.get(i);
-			
-			for (int j=i+1;j<participants.size();j++) {
-
-				Participant p2 = participants.get(j);
-					
-				Enfrontament(p1,p2);
+		for (int r=0;r<rondes;r++) {
+			for (int i=0; i<participants.size();i++)	
+			{
+				Participant p1 = participants.get(i);
+				
+				for (int j=i+1;j<participants.size();j++) {
+	
+					Participant p2 = participants.get(j);
+						
+					Enfrontament(p1,p2);
+				}
 			}
 		}
 		
-		//Treure resultats de la lliga
 		Collections.sort(participants);
 		System.out.println(this);
 		
@@ -84,7 +82,7 @@ public class Campionat {
 		Partida partida = arbitre.resolPartit(j1,j2);
 		System.out.println(partida);
 		//gestio del resultat
-		if (j1 == partida.getGuanyador());
+		if (j1.getClass() == partida.getGuanyador().getClass())
 		{
 			p1.addVictoria();
 			
@@ -96,8 +94,7 @@ public class Campionat {
 				p2.addDerrotes();
 			}
 		}
-		
-		if (j2 == partida.getGuanyador());
+		else
 		{
 			p2.addVictoria();
 			
@@ -111,7 +108,8 @@ public class Campionat {
 		}
 	}
 	public static void main(String[] args) {
-		Campionat c = new Campionat();
+		int rondes = 3;
+		Campionat c = new Campionat(rondes);
 		c.fesCampionat();
 	}
 		

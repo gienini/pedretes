@@ -40,11 +40,12 @@ public class Partida {
 	}
 	@Override
 	public String toString() {
-		String s= " \n *** Guanya el jugador " + guanyador.getClass() + " *** \n";
+		String s= " \n *** Guanya el jugador " + guanyador.getClass() + " ***";
 		if (descalificat)
 		{
-			s+="    Per jugada ilegal de " + perdedor.getClass();
+			s+="\n    Per jugada ilegal de " + perdedor.getClass();
 		}
+		s+="\n\n";
 		return s;
 	}
 
