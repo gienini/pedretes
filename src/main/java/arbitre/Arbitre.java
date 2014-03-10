@@ -59,9 +59,9 @@ public class Arbitre {
 		}
 	}
 
-	public Jugable resolPartit(Jugable j1, Jugable j2) {
+	public Partida resolPartit(Jugable j1, Jugable j2) {
 		// Inicialitzar valors
-		Jugable retorn = null;
+		Partida retorn = null;
 		int resultatJugada = 0;
 		decideixPrimer(j1, j2);
 	
@@ -85,13 +85,28 @@ public class Arbitre {
 			System.out.println("Victoria! ha guanyat: " + tornSeguent().getClass()
 					+ "estat del tauler: " + tauler.x + "-" + tauler.y + "-"
 					+ tauler.z);
-			retorn = tornSeguent();
+			//acavar oer a que torni partida
+			if (torn%2==0)
+			{
+				retorn = new Partida(segon,primer,false);
+			}
+			else
+			{
+				retorn = new Partida(primer,segon,false);
+			}
+			
 		} else {
 			System.out.println("Derrota" + tornSeguent().getClass()
 					+ " ha estat descalificat!, estat del tauler: " + tauler.x
 					+ "-" + tauler.y + "-" + tauler.z);
-			torn++;
-			retorn = tornSeguent();
+			if(torn%2==0)
+			{
+				retorn = new Partida(primer,segon,true);
+			}
+			else
+			{
+				retorn = new Partida(segon,primer,true);
+			}
 		}
 
 		return retorn;
@@ -126,7 +141,8 @@ public class Arbitre {
 			Class <? extends Jugable>  c	    = Class.forName ("jugadors.Gienini").asSubclass (Jugable.class);
 			Arbitre ar = new Arbitre(new Tauler(200));
 			Jugable gienini =c.newInstance();
-			ar.resolPartit(gienini, new Garcia());
+			Partida p = ar.resolPartit(gienini, new Garcia());
+			System.out.println(p);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

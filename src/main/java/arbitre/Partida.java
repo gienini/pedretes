@@ -38,6 +38,14 @@ public class Partida {
 	public void setDescalificat(boolean descalificat) {
 		this.descalificat = descalificat;
 	}
-	
+	@Override
+	public String toString() {
+		String s= " \n *** Guanya el jugador " + guanyador.getClass() + " *** \n";
+		if (descalificat)
+		{
+			s+="    Per jugada ilegal de " + perdedor.getClass();
+		}
+		return s;
+	}
 
 }
