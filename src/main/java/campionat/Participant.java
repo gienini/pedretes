@@ -48,18 +48,24 @@ public class Participant implements Comparable {
 	public void setJugador(Jugable jugador) {
 		this.jugador = jugador;
 	}
+	@Override
 	public int compareTo(Object o) {
 		
 		if (o instanceof Participant)
 		{
-		Participant res = (Participant) o;
-		return this.puntuacio > res.getPuntuacio() ? 1 : this.puntuacio< res.getPuntuacio() ? -1 : 0;
+			Participant res = (Participant) o;
+			if (this.getPuntuacio()<res.getPuntuacio())
+			{
+				
+				return 1;
+				
+			}
+			if(this.getPuntuacio()>res.getPuntuacio())
+			{
+				return -1;
+			}
 		}
-		else
-		{
-			return -1;
-		}
-		
+		return 0;
 	}
 	@Override 
 	public int hashCode() {
@@ -68,19 +74,7 @@ public class Participant implements Comparable {
 		hash = derrotes*prime;
 		hash += victories*prime;
 		hash += descalif*prime;
-		hash += jugador.getClass().hashCode();
+		hash += jugador.hashCode();
 		return hash;	
-	}
-	
-
-	public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-        else if (!(obj instanceof Participant))
-            return false;
-        else {
-        	Participant r = (Participant) obj;
-        	return this.getPuntuacio() == r.getPuntuacio();
-        }
 	}
 }
