@@ -28,4 +28,4 @@ El main es troba a la classe Campionat.
 
 Estructura del programa (més o menys)
 
-![alt tag](http://oi59.tinypic.com/oho5ft.jpg)
+![alt tag] (http://oi57.tinypic.com/24myxw9.jpg)
