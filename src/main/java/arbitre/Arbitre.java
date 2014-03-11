@@ -13,6 +13,8 @@ public class Arbitre {
 	protected int torn;
 	protected Tauler tauler;
 
+	private static final int TEMPS_MAXIM = 6000;
+
 	public Arbitre() {
 		super();
 	}
@@ -52,10 +54,10 @@ public class Arbitre {
 		long seed = Calendar.getInstance().getTimeInMillis();
 		if (seed % 2 == 0) {
 			primer = j1;
-			segon=j2;
+			segon = j2;
 		} else {
 			primer = j2;
-			segon=j1;
+			segon = j1;
 		}
 	}
 
@@ -64,48 +66,64 @@ public class Arbitre {
 		Partida retorn = null;
 		int resultatJugada = 0;
 		decideixPrimer(j1, j2);
-	
 
-		System.out.println("Tauler creat x:" + tauler.getX() + " y:" + tauler.getY() + " z:" + tauler.getZ());
+		System.out.println("Tauler creat x:" + tauler.getX() + " y:"
+				+ tauler.getY() + " z:" + tauler.getZ());
 		// Realitzar les jugades sobre el tauler
-		String seguimentPartida="";
-		Jugada seguimentJugada=null;
-		 do{
+		String seguimentPartida = "";
+		Jugada seguimentJugada = null;
+		FilJugada filJugada = null;
+		int tempsBase = 0;
+		int tempsActual = 0;
+		do {
 			torn++;
-			
-			seguimentJugada= tornSeguent().fesJugada(tauler.getX(),
-					tauler.getY(), tauler.getZ(), torn);
-			System.out.println("Jugada feta: jugador="+tornSeguent().getClass()+" n= "+seguimentJugada.getN()+" x="+seguimentJugada.isX()+" y="+seguimentJugada.isY()+" z="+seguimentJugada.isZ());
+			filJugada = new FilJugada(tauler.getX(), tauler.getY(),
+					tauler.getZ(), torn, tornSeguent());
+			tempsBase = (int) Calendar.getInstance().getTimeInMillis()
+					+ TEMPS_MAXIM;
+			tempsActual = (int) Calendar.getInstance().getTimeInMillis();
+			filJugada.start();
+			while (tempsBase > tempsActual) {
+				tempsActual = (int) Calendar.getInstance().getTimeInMillis();
+				if (!filJugada.isAlive()) {
+					tempsActual = tempsBase;
+				}
+			}
+			if (filJugada.isAlive()) {
+				filJugada.interrupt();
+				seguimentJugada = new Jugada(0, true, true, true);
+			} else {
+				seguimentJugada = filJugada.getRetorn();
+			}
+			System.out.println("Jugada feta: jugador="
+					+ tornSeguent().getClass() + " n= "
+					+ seguimentJugada.getN() + " x=" + seguimentJugada.isX()
+					+ " y=" + seguimentJugada.isY() + " z="
+					+ seguimentJugada.isZ());
 			resultatJugada = tauler.executaJugada(seguimentJugada);
 			System.out.println("Jugada n" + torn + " estat del tauler: "
 					+ tauler.x + "-" + tauler.y + "-" + tauler.z);
-		}while (resultatJugada==Tauler.CORRECTE);
+		} while (resultatJugada == Tauler.CORRECTE);
 		// Comprobar el resultat
 		if (resultatJugada == Tauler.FI) {
-			System.out.println("Victoria! ha guanyat: " + tornSeguent().getClass()
-					+ "estat del tauler: " + tauler.x + "-" + tauler.y + "-"
-					+ tauler.z);
-			//acavar oer a que torni partida
-			if (torn%2==0)
-			{
-				retorn = new Partida(segon,primer,false);
+			System.out.println("Victoria! ha guanyat: "
+					+ tornSeguent().getClass() + "estat del tauler: "
+					+ tauler.x + "-" + tauler.y + "-" + tauler.z);
+			// acavar oer a que torni partida
+			if (torn % 2 == 0) {
+				retorn = new Partida(segon, primer, false);
+			} else {
+				retorn = new Partida(primer, segon, false);
 			}
-			else
-			{
-				retorn = new Partida(primer,segon,false);
-			}
-			
+
 		} else {
 			System.out.println("Derrota" + tornSeguent().getClass()
 					+ " ha estat descalificat!, estat del tauler: " + tauler.x
 					+ "-" + tauler.y + "-" + tauler.z);
-			if(torn%2==0)
-			{
-				retorn = new Partida(primer,segon,true);
-			}
-			else
-			{
-				retorn = new Partida(segon,primer,true);
+			if (torn % 2 == 0) {
+				retorn = new Partida(primer, segon, true);
+			} else {
+				retorn = new Partida(segon, primer, true);
 			}
 		}
 
@@ -138,9 +156,10 @@ public class Arbitre {
 		// System.out.println("ELS JUGADORS NO ESTAN BEN CONFIGURATS");
 		// }
 		try {
-			Class <? extends Jugable>  c	    = Class.forName ("jugadors.Gienini").asSubclass (Jugable.class);
+			Class<? extends Jugable> c = Class.forName("jugadors.Gienini")
+					.asSubclass(Jugable.class);
 			Arbitre ar = new Arbitre(new Tauler(200));
-			Jugable gienini =c.newInstance();
+			Jugable gienini = c.newInstance();
 			Partida p = ar.resolPartit(gienini, new Garcia());
 			System.out.println(p);
 		} catch (ClassNotFoundException e) {
@@ -153,7 +172,6 @@ public class Arbitre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 }

@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
+import java.util.List;
 import java.util.Map.Entry;
 
 import arbitre.Arbitre;
+import arbitre.Instanciador;
 import arbitre.Partida;
 import arbitre.Tauler;
 import jugadors.*;
@@ -18,8 +20,9 @@ public class Campionat {
 	private ArrayList<Participant> participants;
 	private int rondes;
 	
-	public Campionat(int rondes) {
 	
+	public Campionat(List<Jugable> jugadors,int rondes) {
+		participants= Instanciador.getJugables(); 
 		participants = new ArrayList<Participant>();
 		participants.add(new Participant(new Garcia()));
 		participants.add(new Participant(new playerDos()));
@@ -28,6 +31,18 @@ public class Campionat {
 		this.rondes=rondes;
 	
 	}
+	
+	public Campionat(int rondes) {
+		participants= Instanciador.getJugables(); 
+//		participants = new ArrayList<Participant>();
+//		participants.add(new Participant(new Garcia()));
+//		participants.add(new Participant(new playerDos()));
+//		participants.add(new Participant(new Gienini()));
+//		participants.add(new Participant(new playerU()));
+		this.rondes=rondes;
+	
+	}
+	
 	public void fesCampionat() {
 		for (int r=0;r<rondes;r++) {
 			for (int i=0; i<participants.size();i++)	
