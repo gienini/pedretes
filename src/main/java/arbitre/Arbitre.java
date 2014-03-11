@@ -130,48 +130,4 @@ public class Arbitre {
 		return retorn;
 	}
 
-	public static void main(String[] args) {
-		//
-		// int partida = 0;
-		// int torn = 0;
-		// try {
-		// Jugable primerJ = new playerU();
-		// Jugable segonJ = new playerDos();
-		// Tauler tauler = new Tauler(200);
-		// Arbitre arbitre = new Arbitre(tauler);
-		// while (partida != Tauler.FI) {
-		// torn += 1;
-		// partida = tauler.executaJugada(arbitre.torn().fesJugada(
-		// tauler.x, tauler.y, tauler.z));
-		// if (partida == Tauler.INCORRECTE) {
-		// System.out.println("Jugada INCORRECTE Guanya el jugador "
-		// + arbitre.torn().getClass());
-		// partida = Tauler.FI;
-		// }
-		//
-		// }
-		// System.out
-		// .println("Guanya el jugador " + arbitre.torn().getClass());
-		// } catch (Exception e) {
-		// System.out.println("ELS JUGADORS NO ESTAN BEN CONFIGURATS");
-		// }
-		try {
-			Class<? extends Jugable> c = Class.forName("jugadors.Gienini")
-					.asSubclass(Jugable.class);
-			Arbitre ar = new Arbitre(new Tauler(200));
-			Jugable gienini = c.newInstance();
-			Partida p = ar.resolPartit(gienini, new Garcia());
-			System.out.println(p);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 }
