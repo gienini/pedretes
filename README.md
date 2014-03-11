@@ -13,14 +13,17 @@ Es disposen tres pilots de pedres amb un nombre  aleatori d'aquestes cada un. Hi
 Com que anem curts de pedres hem implementat una versió per a ordinador del joc on cada indi pot programar una estratègia per a jugar-hi. El podem descarregar de github
 gienini/pedretes
 Per a fer-ho només hae de crear una classe que implementi l'interfície jugable i deixar-la  al paquet de jugadors.  L'interfície jugable ens fa implementar un mètode. El mètode jugar, és així:
+
 public Jugada fesJugada(int x, int y, int z, int torn);
 
 x,y i z són els tres pilons de pedres i l'arbitre ens donarà el valor que tenen actualment, torn es el numero de torn en que estem. L'arbitre esperarà que li retornem una Jugada
+
 Jugada(int n, boolean x, boolean y, boolean z)
 
 on int n és el numero de pedres que volem treure i els booleans x,y i z indiquen de quines piles volem treure pedres. Amb el projecte hi han uns quants jugadors d'exemple.
 Tots els jugadors que estiguin al paquet jugadors s'enfronten en el campionat. El camionat consisteix en una lliga de tres enfrontaments. Els enfrontaments es poden guanyar, perdre o perdre per eliminació. Si es guanya s'ens dona 1 punt, si es perd -1 un punt i si ens eliminen -2 punts. Si un jugador triga més de 6 segons o fa una jugada il•legal és eiminat (per la partida)
-Per executar el campionat 
+
+Per executar el campionat click dret a la classe Campionat i run as Java Application
 
 Estructura del programa (més o menys)
 
