@@ -23,11 +23,26 @@ public class Gienini implements Jugable {
 	}
 	
 	public int getMinim(int x, int y, int z) {
-		if (x<y&&x<z && x>0) return x;
-		else if (y<z&& y>0) return y;
-		else return z;
+		if (x==0){
+			return getMinimisim(y, z);
+		}
+		if (y==0){
+			return getMinimisim(z, x);
+		}
+		if (z==0){
+			return getMinimisim(y, x);
+		}
+		if (x<y&&x<z) return x;
+		if (y<z&& y<x) return y;
+		return z;
 	}
 
+	public int getMinimisim(int i1, int i2){
+		if (i1==0) return i2;
+		if (i2==0) return i1;
+		if (i1<i2) return i1;
+		else return i2;
+	}
 	@Override
 	public int hashCode() {
 		return "Gienini".hashCode();
